@@ -110,11 +110,42 @@ const handlers = {
 
         if (expenseTotal === 0) {
             console.log("No expenses found.")
+        } else if (isValidNum.ok) {
+            const monthName = new Date(0, isValidNum.number - 1).toLocaleString('default', { month: 'long' });
+
+            console.log(`Total expenses for ${monthName}: $${expenseTotal}`);
         } else {
             console.log(`Total expenses: $${expenseTotal}`)
         }
     },
-    list: () => { }
+
+    list: (_args) => {
+        const { _nextId, expenses } = fileHandler.readData()
+
+        console.log(
+            "ID:".padEnd(5),
+            "Date:".padEnd(12),
+            "Title:".padEnd(20),
+            "Amount"
+        )
+
+        for (const expense of Object.values(expenses)) {
+            const date = new Date(expense.createdAt)
+            const formatedDate = [
+                String(date.getUTCDate()).padStart(2, 0),
+                String(date.getUTCMonth() + 1).padStart(2, 0),
+                date.getUTCFullYear()
+            ].join("-")
+
+
+            console.log(
+                String(expense.id).padEnd(5),
+                formatedDate.padEnd(12),
+                expense.title.padEnd(20),
+                expense.amount
+            )
+        }
+    }
 }
 
 
