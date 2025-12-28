@@ -145,6 +145,19 @@ const handlers = {
                 expense.amount
             )
         }
+    }, help: (_args) => {
+        console.log(`
+            Expense Tracker CLI - Usage Guide
+
+            Commands:
+            add <title> <amount>           Add a new expense
+            list                           Show all expenses in a table
+            update <id> <title> <amount>   Update an existing expense
+            delete <id>                    Delete an expense by ID
+            summary                        Show total of all expenses
+            summary <month>                Show total for a specific month (1-12)
+            help                           Show this menu
+                `);
     }
 }
 
@@ -157,9 +170,11 @@ if (args.length) {
 
     if (!handler) {
         console.log("Invalid Command.")
+        handlers.help()
     } else {
         handler(rest)
     }
 } else {
     console.log("No input command.")
+    handlers.help()
 }
