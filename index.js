@@ -19,6 +19,7 @@ const handlers = {
         const { nextId, expenses } = fileHandler.readData()
 
         const newExpenses = {
+            id: nextId,
             title: titleCheck.title,
             amount: isValidNum.number,
             createdAt: new Date().toISOString()
@@ -107,7 +108,11 @@ const handlers = {
 
         }
 
-        console.log(`Total expenses: $${expenseTotal}`)
+        if (expenseTotal === 0) {
+            console.log("No expenses found.")
+        } else {
+            console.log(`Total expenses: $${expenseTotal}`)
+        }
     },
     list: () => { }
 }
