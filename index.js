@@ -1,5 +1,5 @@
 import { FileHanlder } from "./fileHandler.js";
-import { validateTitle, validAmount } from "./ValidationUtils.js";
+import { validAmount, validateTitle } from "./ValidationUtils.js";
 
 
 const args = process.argv.slice(2)
@@ -20,6 +20,24 @@ const handlers = {
             console.log(amountCheck.message)
             return
         }
+
+        const { nextId, expenses } = fileHandler.readData()
+
+        const newExpenses = {
+            title: titleCheck.title,
+            amount: amountCheck.amount,
+            createdAt: new Date().toISOString()
+        }
+
+        fileHandler.writeData({
+            nextId: nextId + 1,
+            expenses: {
+                ...expenses,
+                [nextId]: newExpenses
+            }
+        })
+
+        console.log(`Expense added successfully (ID: ${nextId})`)
     },
     update: () => { },
     delete: () => { },

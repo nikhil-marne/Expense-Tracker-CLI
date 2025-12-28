@@ -5,6 +5,11 @@ export function validateTitle(title) {
             ok: false,
             message: "Title field cannot be empty!"
         }
+    } else {
+        return {
+            ok: true,
+            title
+        }
     }
 }
 
