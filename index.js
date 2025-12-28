@@ -82,7 +82,33 @@ const handlers = {
 
         console.log(`Expense deleted successfully (ID: ${isValidNum.number})`)
     },
-    summary: () => { },
+    summary: ([month]) => {
+        const isValidNum = isValidNumber(month, "Month")
+
+        const { _nextId, expenses } = fileHandler.readData()
+        let expenseTotal = 0;
+
+        if (isValidNum.ok && isValidNum.number) {
+            expenseTotal = Object.values(expenses)
+                .filter(expense => {
+
+                    const date = new Date(expense.createdAt);
+
+                    return (
+                        date.getUTCMonth() + 1 === isValidNum.number &&
+                        date.getUTCFullYear() === new Date().getUTCFullYear()
+                    )
+                })
+                .reduce((sum, expense) => sum + expense.amount, 0);
+
+        } else {
+            expenseTotal = Object.values(expenses)
+                .reduce((sum, expense) => sum + expense.amount, 0);
+
+        }
+
+        console.log(`Total expenses: $${expenseTotal}`)
+    },
     list: () => { }
 }
 
