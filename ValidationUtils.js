@@ -26,12 +26,35 @@ export function validAmount(amount) {
     if (Number.isNaN(parsedAmount) || parsedAmount < 0) {
         return {
             ok: false,
-            message: "Invalid amount, Amount should be Positive Number"
+            message: "Invalid amount, Amount should be Positive Number."
         }
     }
 
     return {
         ok: true,
         amount: parsedAmount
+    }
+}
+
+export function isValidNumber(value, valueName) {
+    if (value === null || value.trim() === "") {
+        return {
+            ok: false,
+            message: `${valueName} field cannot be empty!`
+        }
+    }
+
+    const parsedValue = Number(value)
+
+    if (Number.isNaN(parsedValue) || parsedValue < 0) {
+        return {
+            ok: false,
+            message: `Invalid ${valueName}, ${valueName} should be Positive Number.`
+        }
+    }
+
+    return {
+        ok: true,
+        number: parsedValue
     }
 }
