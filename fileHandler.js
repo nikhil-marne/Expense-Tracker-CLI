@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 
-export class fileHanlder {
+export class FileHanlder {
     BASE_DIR;
     FILES_DIR;
     USER_FILE
@@ -40,4 +40,14 @@ export class fileHanlder {
             console.log(`Application Error: ${err.message}`)
         }
     }
+
+    readData() {
+        try {
+            const data = fs.readFileSync(this.USER_FILE, "utf-8")
+            return JSON.parse(data)
+        } catch (err) {
+            console.log(`Application Error: ${err.message}`)
+        }
+    }
 }
+
