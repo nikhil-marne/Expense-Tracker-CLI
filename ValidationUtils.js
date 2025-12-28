@@ -13,31 +13,11 @@ export function validateTitle(title) {
     }
 }
 
-export function validAmount(amount) {
-    if (amount === null || amount.trim() === "") {
-        return {
-            ok: false,
-            message: "Amount field cannot be empty!"
-        }
-    }
-
-    const parsedAmount = parseFloat(amount)
-
-    if (Number.isNaN(parsedAmount) || parsedAmount < 0) {
-        return {
-            ok: false,
-            message: "Invalid amount, Amount should be Positive Number."
-        }
-    }
-
-    return {
-        ok: true,
-        amount: parsedAmount
-    }
-}
 
 export function isValidNumber(value, valueName) {
-    if (value === null || value.trim() === "") {
+
+
+    if (!value?.trim()) {
         return {
             ok: false,
             message: `${valueName} field cannot be empty!`
@@ -46,7 +26,7 @@ export function isValidNumber(value, valueName) {
 
     const parsedValue = Number(value)
 
-    if (Number.isNaN(parsedValue) || parsedValue < 0) {
+    if (!Number.isFinite(parsedValue) || parsedValue < 0) {
         return {
             ok: false,
             message: `Invalid ${valueName}, ${valueName} should be Positive Number.`
